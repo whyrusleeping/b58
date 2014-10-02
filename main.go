@@ -54,7 +54,11 @@ func decodeFunc(c *cobra.Command, inp []string) {
 			fmt.Fprintln(os.Stderr, err)
 			return
 		}
-		os.Stdout.Write(base58.Decode(string(i)))
+		if i[len(i)-1] == '\n' {
+			i = i[:len(i)-1]
+		}
+		decoded := base58.Decode(string(i))
+		os.Stdout.Write(decoded)
 	}
 }
 
